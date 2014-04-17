@@ -28,9 +28,11 @@ multipleConditionTest(cond,prediction,rightMostFn,fns) = begin
     local condition = $(esc(cond))
     local expected= $(esc(prediction))
     local rightMostFn = $(esc(rightMostFn))
-    local fns = $fns
-    local allTrue = foldr(rightMostFn(condition,expected),fns) do fn,res
-      eval(fn)(res)
+    local fns = $(Expr(:vcat,reverse(fns)...))
+    local allTrue = rightMostFn(condition,expected)
+    local fn
+    for fn in fns
+      allTrue = fn(allTrue)
     end
     allTrue || error("got $(repr(condition)), expected to be $(join(fns,' ')) $rightMostFn $(repr(expected))")
   end end
