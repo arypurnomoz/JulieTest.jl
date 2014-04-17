@@ -2,14 +2,14 @@
 
 files = ["src","test"]
 interval = 0.25
-quotes = readdlm(joinpath(Pkg.dir(),"JuliaTest/res/quotes.txt"), '\n')
+quotes = readdlm(joinpath(Pkg.dir(),"JulieTest/res/quotes.txt"), '\n')
 reporter = ""
 
 # end
 
 
 # do not polute global space with function definition
-function juliaTest()
+function julieTest()
   global files
   global quotes
   global interval
@@ -17,7 +17,7 @@ function juliaTest()
   
   
   # we need to call runTests method from this module
-  require(joinpath(Pkg.dir(),"JuliaTest/src/JuliaTest.jl"))
+  require(joinpath(Pkg.dir(),"JulieTest/src/JulieTest.jl"))
   
   lastRun = time()
   running = false
@@ -48,12 +48,12 @@ function juliaTest()
       isTestFile(file) || continue
       reload(joinpath(PWD, "test", file)) 
     end
-    JuliaTest.runTests()
+    JulieTest.runTests()
   end
 
   function runSingleTest(filepath::String)
     reload(filepath)
-    JuilaTest.runTests()
+    JulieTest.runTests()
   end
 
   function runTestFor(filepath::String)
@@ -110,7 +110,7 @@ function juliaTest()
   end
   
   print(surround(getQuotes()))
-  JuliaTest.reporter(reporter)
+  JulieTest.reporter(reporter)
   
   "--single" in ARGS  && return Base.exit(runAllTest())
   "--skip-init" in ARGS || runAllTest()

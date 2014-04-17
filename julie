@@ -3,9 +3,9 @@
 JULIE_USAGE=\
 "Usage: julie [commands] arguments [julia options]
   
-init      initialize JuliaTest directory
+init      initialize JulieTest directory
 module    create basic module template
-start     start JuliaTest to watch the directory
+start     start JulieTest to watch the directory
 single    run all test then exit
 help      print this help
 
@@ -14,10 +14,10 @@ examples:
   julie module first second
   julie start -p 4"
 
-JULIA_TEST_CONFIG_TEMPLATE=\
-"#JuliaTest config file
+JULIE_TEST_CONFIG_TEMPLATE=\
+"#JulieTest config file
   
-include(joinpath(Pkg.dir(),\"JuliaTest/src/watch.jl\"))
+include(joinpath(Pkg.dir(),\"JulieTest/src/watch.jl\"))
 
 # Configure the watcher
 
@@ -30,8 +30,8 @@ interval = 0.25 # in seconds
 # reporter = \"dot\"
 reporter = \"spec\"
 
-# start JuliaTest
-juliaTest()"
+# start JulieTest
+julieTest()"
 
 getModuleTemplate() { echo \
 "module $1
@@ -42,7 +42,7 @@ end"
 getModuleTestTemplate() { echo \
 "module $1_test
 reload(\"\$(pwd())/src/$1.jl\")
-using $1, JuliaTest
+using $1, JulieTest
 
 # Write your test here
 
@@ -69,7 +69,7 @@ init(){
       mkdir "$(pwd)/$dir"
     fi
   done
-  create testConfig.jl "$JULIA_TEST_CONFIG_TEMPLATE"
+  create testConfig.jl "$JULIE_TEST_CONFIG_TEMPLATE"
 }
 
 case $1 in

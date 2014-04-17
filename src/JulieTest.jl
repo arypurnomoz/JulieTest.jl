@@ -1,8 +1,8 @@
-module JuliaTest
+module JulieTest
 
-include("JuliaTest/macros.jl")
-include("JuliaTest/context.jl")
-include("JuliaTest/is.jl")
+include("JulieTest/macros.jl")
+include("JulieTest/context.jl")
+include("JulieTest/is.jl")
 #=include("reporter/spec.jl")=#
 
 export 
@@ -39,9 +39,9 @@ end
 function reporter(str::String)
   global reporterLoaded = true
   str == "" && return
-  filepath = joinpath(Pkg.dir(), "JuliaTest/src/reporter", str * ".jl")
+  filepath = joinpath(Pkg.dir(), "JulieTest/src/reporter", str * ".jl")
   fliepath = isfile(filepath) ? filepath : abspath(str)
-  JuliaTest.eval(:(include($filepath)))
+  JulieTest.eval(:(include($filepath)))
 end
 
 end # module test

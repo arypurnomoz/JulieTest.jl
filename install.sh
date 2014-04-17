@@ -6,7 +6,7 @@ else
   pkgdir=$1
 fi
 
-path=$pkgdir/JuliaTest/julie
+path=$pkgdir/JulieTest/julie
 
 for rc in  ~/.bashrc ~/.zshrc; do
   if [ -f $rc ]; then

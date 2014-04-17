@@ -1,5 +1,5 @@
-module JuliaTest_test
-using JuliaTest
+module JulieTest_test
+using JulieTest
 
 noob() = Nothing
 

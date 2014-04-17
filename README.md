@@ -1,30 +1,40 @@
-# JuliaTest
+# JulieTest
 
-A Julia testing framework inspired by javascripts's Mocha
+A Julia testing framework inspired by javascripts's Mocha. It is also able to watch for changes and run specific the test.
 
-![Screenshot](https://github.com/arypurnomoz/JuliaTest.jl/raw/master/res/screenshot.png)
+![Screenshot](https://github.com/arypurnomoz/JulieTest.jl/raw/master/res/screenshot.png)
 
 ## Installation
 
-For Bash or Zsh, run this on your command line, this will add an alias to the julie command line on your bashrc or zshrc
-```
-julia -e 'Pkg.clone("git://github.com/arypurnomoz/JuliaTest.jl.git");run(`$(joinpath(Pkg.dir(),"JuliaTest/install.sh")) $(Pkg.dir())`)'
+For Bash/Zsh user, run this on your command line, this will add an alias to the julie command on your bashrc/zshrc.
+```jl
+julia -e 'Pkg.clone("git://github.com/arypurnomoz/JulieTest.jl.git");run(`$(joinpath(Pkg.dir(),"JulieTest/install.sh")) $(Pkg.dir())`)'
 ```
 
 ## Using Julie Command
 
+Julie is a wrapper for julia to be used with JulieTest
+
 ```sh
 Usage: julie [commands] arguments [julia options]
   
-init      initialize JuliaTest test directory
+init      initialize JulieTest test directory
 module    create basic module template
-start     start JuliaTest to watch the directory
+start     start JulieTest to watch the directory
 single    run all test then exit
 
 examples:
   julie init
   julie module firstModule secondModule
   julie start -p 4
+```
+
+### Without Julie Command
+
+In case if you want to run JulieTest without the julie command you can run it directly from the `testConfig.jl`
+```sh
+julia testConfig.jl --single # will run in single mode
+julia testConfig.jl --skip-init # will not run all test on enter
 ```
 
 ## Configuration
@@ -34,7 +44,7 @@ examples:
 # testConfig.jl example
  
 # this need to be included
-include(joinpath(Pkg.dir(),"JuliaTest/src/watch.jl"))
+include(joinpath(Pkg.dir(),"JulieTest/src/watch.jl"))
 
 # the directory to watch (will be recursive)
 watch = ["src","test"]
@@ -43,21 +53,19 @@ watch = ["src","test"]
 quotes = ["Julia rocks!"]
 
 # currently only `spec` and `dot` is available
-# but you can use your custom reporter to be included, ex:
-#   reporter = abspath("path/to/reporter")
 reporter = "spec"
 
 # the interval of each test, default is int 0.25 second
 interval = 0.25 
 
-# this will start JuliaTest
-juliaTest()
+# this will start JulieTest
+julieTest()
 ```
 
 ## Test File
 
 ```jl
-using Julia
+using JulieTest
 
 describe ("myTest") do
   it("basic") do
@@ -112,10 +120,3 @@ end
 @is [1:5] => not empty
 ```
 
-### Running JuliaTest without using the julie command line
-
-In case if you want to run JuliaTest without the julie command you can run it from the `testConfig.jl`
-```sh
-julia testConfig.jl --single # will run in single mode
-julia testConfig.jl --skip-init # will not run all test on enter
-```

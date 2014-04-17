@@ -1,6 +1,6 @@
 #hiJulia config file
   
-include(joinpath(Pkg.dir(),"JuliaTest/src/watch.jl"))
+include(joinpath(Pkg.dir(),"JulieTest/src/watch.jl"))
 
 # Configure the watcher
 
@@ -11,5 +11,5 @@ interval = 0.25 # in seconds
 reporter = "spec"
 
 # start hiJulia
-juliaTest()
+julieTest()
 
