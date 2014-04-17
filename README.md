@@ -1,13 +1,13 @@
 # JuliaTest
 
-A Julia testing framework inspired by javascripts's Mocha
+A Julia testing framework inspired by javascripts's Mocha. It is also able to watch for changes and run specific the test.
 
 ![Screenshot](https://github.com/arypurnomoz/JuliaTest.jl/raw/master/res/screenshot.png)
 
 ## Installation
 
 For Bash/Zsh user, run this on your command line, this will add an alias to the julie command on your bashrc/zshrc.
-```
+```jl
 julia -e 'Pkg.clone("git://github.com/arypurnomoz/JuliaTest.jl.git");run(`$(joinpath(Pkg.dir(),"JuliaTest/install.sh")) $(Pkg.dir())`)'
 ```
 
