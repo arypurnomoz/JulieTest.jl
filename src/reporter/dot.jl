@@ -5,6 +5,8 @@ PASS_LIGHT_COLOR = "\033[92m"
 FAILED_COLOR = "\033[31m"
 FAILED_LIGHT_COLOR = "\033[91m"
 
+DESCRIPTION_ERROR_MESSAGE = "PANIC! Got an error while called describe"
+
 HOUR = 3600_000
 MINUTES = 60_000
 SECOND = 1000
@@ -57,7 +59,13 @@ end
 function fullFailedReport(errors)
   for i in 1:length(errors)
     err = errors[i]
-    println(i, ") ", err.test.desc.name, " - ", err.test.name, ":", FAILED_COLOR)
+    print(PAD, i, ") ")
+    if isa(err, DescriptionError)
+      print(DESCRIPTION_ERROR_MESSAGE, " - ", err.desc.name)
+    else
+      print(err.test.desc.name, " - ", err.test.name)
+    end
+    println(":", FAILED_COLOR)
     dump(err.err)
     println(RESET)
   end

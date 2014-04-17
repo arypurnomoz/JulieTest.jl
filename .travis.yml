@@ -15,3 +15,9 @@ before_install:
 script:
   - julia -e 'Pkg.init(); Pkg.clone(pwd());'
   - julia testConfig.jl -s
+  - mkdir sample
+  # Test the julie command
+  - cd sample
+  - ../julie init
+  - ../julie module sample
+  - ../julie start

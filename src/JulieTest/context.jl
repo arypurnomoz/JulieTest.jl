@@ -12,6 +12,13 @@ type Test
   name::String
   desc::Description
   fn::Function
+  iit::Bool
+  function Test(name::String, desc::Description, fn::Function, iit::Bool)
+    new(name,desc,fn,iit)
+  end
+  function Test(name::String, desc::Description, fn::Function)
+    new(name,desc,fn,false)
+  end
 end
 
 type Error
@@ -29,11 +36,14 @@ end
 descPrefix = ""
 currDesc = None
 depth = 0
+iitOn = false
+iitTests= Test[]
 descriptions = Description[]
 passes = Test[]
 errors = Union(Error,DescriptionError)[]
 
 function run(test::Test)
+  iitOn && !test.iit && return
   fin = 0
   try
     t0 = time()
@@ -70,7 +80,7 @@ function run(desc::Description)
 end
 
 function run()
-  global descriptions, passes, errors, descPrefix, depth
+  global descriptions, passes, errors, descPrefix, depth, iitOn, iitTests
   t0 = time()
   run(descriptions)
   summaryReport(passes,errors, toMilis(time() - t0))
@@ -83,6 +93,7 @@ function run()
   tests = None
   descPrefix = ""
   depth = 0
+  iitOn = false
   empty!(descriptions)
   empty!(passes)
   empty!(errors)
@@ -98,6 +109,11 @@ end
 
 function it(fn::Function, name::String)
   push!(currDesc.children, Test(name,currDesc,fn))
+end
+
+function iit(fn::Function, name::String)
+  global iitOn = true
+  push!(currDesc.children, Test(name,currDesc,fn,true))
 end
   
 _describe(args...) = begin end

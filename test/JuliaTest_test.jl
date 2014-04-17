@@ -1,4 +1,5 @@
 module JulieTest_test
+
 using JulieTest
 
 noob() = Nothing
@@ -7,9 +8,11 @@ describe("@is") do
   it("basic") do
     @is 1 => 1
   end
+  
   it("expression on left side") do
     @is 1 + 1 => 2
   end
+  
   it("variable on the left side") do
     x = 1
     @is x => 1

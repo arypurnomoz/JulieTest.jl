@@ -10,6 +10,7 @@ FAILED_LIGHT_COLOR = "\033[91m"
 HOUR = 3600_000
 MINUTES = 60_000
 SECOND = 1000
+DESCRIPTION_ERROR_MESSAGE = "PANIC! Got an error while called describe"
 
 toMilis(n) = int(n * 10e2)
 
@@ -57,8 +58,9 @@ end
 
 function failedReport(err::DescriptionError)
   err.desc.depth == 1 && println()
-  print(PAD ^ err.desc.depth,FAILED_COLOR, FAIL,
-    " PANIC! Got an error while called describe: ",err.desc.name
+  print(
+    PAD ^ err.desc.depth,FAILED_COLOR, FAIL, " ",
+    DESCRIPTION_ERROR_MESSAGE, " - ", err.desc.name
   )
   print(RESET,'\n')
 end
@@ -68,10 +70,17 @@ function failedReport(err::Error)
   print(RESET,'\n')
 end
 
+
 function fullFailedReport(errors)
   for i in 1:length(errors)
     err = errors[i]
-    println(PAD, i, ") ", err.test.desc.name, " - ", err.test.name, ":", FAILED_COLOR, PAD)
+    print(PAD, i, ") ")
+    if isa(err, DescriptionError)
+      print(DESCRIPTION_ERROR_MESSAGE, " - ", err.desc.name)
+    else
+      print(err.test.desc.name, " - ", err.test.name)
+    end
+    println(":", FAILED_COLOR)
     dump(err.err)
     #=for i in 1:2=#
     #=  println(PAD ^ 2,err.trace[i])=#

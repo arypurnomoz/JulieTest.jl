@@ -84,6 +84,13 @@ describe ("myTest") do
     @is true => falsy
   end
   
+  # iit will make the test ignore the it
+  # and only run the iit
+  
+  iit("the test should only run this") do
+    @is true => not not truthy
+  end
+  
   # describe can be recursive
   describe("Array") do
     it("should not empty") do

@@ -15,7 +15,6 @@ function julieTest()
   global interval
   global reporter
   
-  
   # we need to call runTests method from this module
   require(joinpath(Pkg.dir(),"JulieTest/src/JulieTest.jl"))
   
