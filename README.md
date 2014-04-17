@@ -14,7 +14,6 @@ julia -e 'Pkg.clone("git://github.com/arypurnomoz/JulieTest.jl.git");run(`$(join
 ## Using Julie Command
 
 Julie is a wrapper for julia to be used with JulieTest
-
 ```sh
 Usage: julie [commands] arguments [julia options]
   
