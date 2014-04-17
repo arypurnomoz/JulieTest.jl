@@ -86,7 +86,6 @@ describe ("myTest") do
   
   # iit will make the test ignore the it
   # and only run the iit
-  
   iit("the test should only run this") do
     @is true => not not truthy
   end
