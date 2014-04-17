@@ -6,12 +6,14 @@ A Julia testing framework inspired by javascripts's Mocha
 
 ## Installation
 
-For Bash or Zsh, run this on your command line, this will add an alias to the julie command line on your bashrc or zshrc
+For Bash/Zsh user, run this on your command line, this will add an alias to the julie command on your bashrc/zshrc.
 ```
 julia -e 'Pkg.clone("git://github.com/arypurnomoz/JuliaTest.jl.git");run(`$(joinpath(Pkg.dir(),"JuliaTest/install.sh")) $(Pkg.dir())`)'
 ```
 
 ## Using Julie Command
+
+Julie is a wrapper for julia to be used with JuliaTest
 
 ```sh
 Usage: julie [commands] arguments [julia options]
@@ -25,6 +27,14 @@ examples:
   julie init
   julie module firstModule secondModule
   julie start -p 4
+```
+
+### Without Julie Command
+
+In case if you want to run JuliaTest without the julie command you can run it directly from the `testConfig.jl`
+```sh
+julia testConfig.jl --single # will run in single mode
+julia testConfig.jl --skip-init # will not run all test on enter
 ```
 
 ## Configuration
@@ -43,8 +53,6 @@ watch = ["src","test"]
 quotes = ["Julia rocks!"]
 
 # currently only `spec` and `dot` is available
-# but you can use your custom reporter to be included, ex:
-#   reporter = abspath("path/to/reporter")
 reporter = "spec"
 
 # the interval of each test, default is int 0.25 second
@@ -112,10 +120,3 @@ end
 @is [1:5] => not empty
 ```
 
-### Running JuliaTest without using the julie command line
-
-In case if you want to run JuliaTest without the julie command you can run it from the `testConfig.jl`
-```sh
-julia testConfig.jl --single # will run in single mode
-julia testConfig.jl --skip-init # will not run all test on enter
-```
