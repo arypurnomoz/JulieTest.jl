@@ -65,7 +65,7 @@ juliaTest()
 ## Test File
 
 ```jl
-using Julia
+using JuliaTest
 
 describe ("myTest") do
   it("basic") do
