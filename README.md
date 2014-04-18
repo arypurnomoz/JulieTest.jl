@@ -7,8 +7,9 @@ A Julia testing framework inspired by javascripts's Mocha. It is also able to wa
 ## Installation
 
 ```sh
-julia -e 'Pkg.add("JulieTest")'
+sudo julia -e 'Pkg.add("JulieTest")'
 ```
+_** Use sudo to copy julie executable to /usr/local/bin_
 
 ## Using Julie Command
 
@@ -32,7 +33,6 @@ Examples:
   julie module first second
   julie start -p 4
 ```
-_** JulieTest will append an alias to julie executable to your bashrc/zshrc_
 
 ### Without Julie Command
 
