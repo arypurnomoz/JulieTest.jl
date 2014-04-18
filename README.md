@@ -7,8 +7,8 @@ A Julia testing framework inspired by javascripts's Mocha. It is also able to wa
 ## Installation
 
 For Bash/Zsh user, run this on your command line, this will add an alias to the julie command on your bashrc/zshrc.
-```jl
-julia -e 'Pkg.clone("git://github.com/arypurnomoz/JulieTest.jl.git");run(`$(joinpath(Pkg.dir(),"JulieTest/install.sh")) $(Pkg.dir())`)'
+```sh
+julia -e 'Pkg.add("JulieTest");run(`$(joinpath(Pkg.dir(),"JulieTest/install.sh")) $(Pkg.dir())`)'
 ```
 
 ## Using Julie Command
