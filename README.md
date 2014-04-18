@@ -13,7 +13,7 @@ julia -e 'Pkg.add("JulieTest")'
 ## Using Julie Command
 
 Julie is a wrapper for julia to be used with JulieTest
-```sh
+```
 Usage: julie [commands] arguments [options]
 
 Commands:
@@ -32,22 +32,21 @@ Examples:
   julie module first second
   julie start -p 4
 ```
-_`JulieTest will add julie alias to your bashrc/zshrc`_
+_** JulieTest will append an alias to julie executable to your bashrc/zshrc_
 
 ### Without Julie Command
 
 In case if you want to run JulieTest without the julie command you can run it directly from the `testConfig.jl`
 ```sh
-julia testConfig.jl --single # will run in single mode
-julia testConfig.jl --skip-init # will not run all test on enter
+julia testConfig.jl --single       # will run in single mode
+julia testConfig.jl --skip-init    # will not run all test on enter
+julia testConfig.jl --reporter=dot # you can specify the reporter here
 ```
 
 ## Configuration
 
-`julie start` will run `julia testConfig.jl` in the current directory, you can use `julie init` if you don't have one
+`julie start` will run `julia testConfig.jl` in the current directory, you can use `julie init` if you want to create one.
 ```jl
-# testConfig.jl example
- 
 # this need to be included
 include(joinpath(Pkg.dir(),"JulieTest/src/watch.jl"))
 
@@ -118,13 +117,13 @@ end
 # Basic
 @is 1 => not 2
 @is true => truthy
-@is false => falsy # also aliased to falsey
+@is false => falsy  # also aliased to falsey
 
 # Comparison
-@is 2 => above 1 # also aliased to isabove, isAbove
-@is 2 => below 3 # also aliased to isbelow, isBelow
-@is 2 => most 3 # translate to 2 <= 3, also aliased to ismost, isMost
-@is 3 => least 2 # translate to 3 >= 2, also aliased to atleast, atLeast
+@is 2 => above 1    # also aliased to isabove, isAbove
+@is 2 => below 3    # also aliased to isbelow, isBelow
+@is 2 => most 3     # translate to 2 <= 3, also aliased to ismost, isMost
+@is 3 => least 2    # translate to 3 >= 2, also aliased to atleast, atLeast
 
 # Array
 @is {} => empty
