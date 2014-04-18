@@ -33,7 +33,6 @@ type DescriptionError
   trace
 end
 
-descPrefix = ""
 currDesc = None
 depth = 0
 iitOn = false
@@ -65,7 +64,7 @@ function run{T<:Array}(suite::T)
 end
 
 function run(desc::Description)
-  global currDesc, descPrefix, depth
+  global currDesc, depth
   currDesc = desc
   depth = desc.depth
   try
@@ -80,18 +79,13 @@ function run(desc::Description)
 end
 
 function run()
-  global descriptions, passes, errors, descPrefix, depth, iitOn, iitTests
+  global descriptions, passes, errors, depth, iitOn, iitTests
   t0 = time()
   run(descriptions)
   summaryReport(passes,errors, toMilis(time() - t0))
-  totalError = length(errors)
-  
-  totalError == 0  || fullFailedReport(errors)
-  
   
   # Reset the global variables
   tests = None
-  descPrefix = ""
   depth = 0
   iitOn = false
   empty!(descriptions)
@@ -99,11 +93,11 @@ function run()
   empty!(errors)
   
   println('\n',"\033[33mAll test finished running\n", RESET)
-  return totalError
+  return length(errors)
 end
 
 function describe(fn::Function, name::String)
-  global descriptions, descPrefix, depth
+  global descriptions, depth
   push!(descriptions, Description(name,fn,depth + 1))
 end
 

@@ -24,11 +24,12 @@ function report(desc::Description)
 end
 
 
-function summaryReport(passes,errors,elapsed)
+function summaryReport(passes::Array{Test,1},errors::Array{Union(Error,DescriptionError),1},elapsed)
   println()
   println(PASS_LIGHT_COLOR, PAD, length(passes), " passing ",FAINT_COLOR, "(", showTime(elapsed), ")")
   length(errors) == 0 || println(FAILED_LIGHT_COLOR, PAD, length(errors), " failing")
   println(RESET)
+  length(errors) == 0  || fullFailedReport(errors)
 end
 
 function showTime(n)
@@ -71,7 +72,7 @@ function failedReport(err::Error)
 end
 
 
-function fullFailedReport(errors)
+function fullFailedReport(errors::Array{Union(Error,DescriptionError),1})
   for i in 1:length(errors)
     err = errors[i]
     print(PAD, i, ") ")
