@@ -1,11 +1,11 @@
-singular(cond) = begin
+function singular(cond)
   quote let
     local expected = $(string(cond))
     $(esc(cond)) || error("$expected, turns out to be false")
   end end
 end
 
-exact(cond,prediction) = begin
+function exact(cond,prediction)
   quote let
     local got = $(esc(cond))
     local expected = $(esc(prediction))
@@ -14,7 +14,7 @@ exact(cond,prediction) = begin
   end end
 end
 
-singleConditiontest(cond,leftMost,prediction) = begin
+function singleConditiontest(cond,leftMost,prediction)
   quote let
     local condition = $(esc(cond))
     local expected = $(esc(prediction))
@@ -23,7 +23,7 @@ singleConditiontest(cond,leftMost,prediction) = begin
   end end
 end
 
-multipleConditionTest(cond,prediction,rightMostFn,fns) = begin
+function multipleConditionTest(cond,prediction,rightMostFn,fns)
   quote let
     local condition = $(esc(cond))
     local expected= $(esc(prediction))

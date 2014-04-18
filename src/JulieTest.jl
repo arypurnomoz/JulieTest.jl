@@ -1,9 +1,7 @@
 module JulieTest
 
-include("JulieTest/macros.jl")
 include("JulieTest/context.jl")
 include("JulieTest/is.jl")
-#=include("reporter/spec.jl")=#
 
 export 
   # reporter
