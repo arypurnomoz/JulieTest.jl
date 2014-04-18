@@ -14,10 +14,9 @@ before_install:
   - sudo apt-get install libpcre3-dev julia -y
 script:
   - julia -e 'Pkg.init(); Pkg.clone(pwd());'
-  - julia testConfig.jl --single
-  # Test the julie command
-  - mkdir sample
-  - cd sample
+  - for i in src/reporter/*; do ./julie single testConfig.jl --reporter=$(basename $i .jl); done
+  - mkdir .testTmp
+  - cd .testTmp
   - ../julie init
   - ../julie module sample
   - ../julie single

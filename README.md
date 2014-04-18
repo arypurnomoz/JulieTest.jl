@@ -6,27 +6,33 @@ A Julia testing framework inspired by javascripts's Mocha. It is also able to wa
 
 ## Installation
 
-For Bash/Zsh user, run this on your command line, this will add an alias to the julie command on your bashrc/zshrc.
 ```sh
-julia -e 'Pkg.add("JulieTest");run(`$(joinpath(Pkg.dir(),"JulieTest/install.sh")) $(Pkg.dir())`)'
+julia -e 'Pkg.add("JulieTest")'
 ```
 
 ## Using Julie Command
 
 Julie is a wrapper for julia to be used with JulieTest
 ```sh
-Usage: julie [commands] arguments [julia options]
-  
-init      initialize JulieTest test directory
-module    create basic module template
-start     start JulieTest to watch the directory
-single    run all test then exit
+Usage: julie [commands] arguments [options]
 
-examples:
+Commands:
+    init  initialize JulieTest directory
+  module  create basic module template
+   start  start JulieTest to watch the directory
+  single  run all test then exit
+    help  print this help
+
+Options:
+  --reporter=dot  use specified reporter
+  --skip-init     skip running all test at start
+
+Examples:
   julie init
-  julie module firstModule secondModule
+  julie module first second
   julie start -p 4
 ```
+_`JulieTest will add julie alias to your bashrc/zshrc`_
 
 ### Without Julie Command
 

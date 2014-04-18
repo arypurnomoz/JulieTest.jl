@@ -1,6 +1,6 @@
 #hiJulia config file
   
-include(joinpath(Pkg.dir(),"JulieTest/src/watch.jl"))
+include(Pkg.dir("JulieTest/src/watch.jl"))
 
 # Configure the watcher
 

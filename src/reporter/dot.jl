@@ -13,7 +13,8 @@ SECOND = 1000
 
 toMilis(n) = int(n * 10e2)
 
-function report(desc::Description) end
+function report(desc::Description)
+end
 
 function summaryReport(passes::Array{Test,1},errors::Array{Union(Error,DescriptionError),1},elapsed)
   println('\n',PASS_LIGHT_COLOR, length(passes), " passing ",FAINT_COLOR, "(", showTime(elapsed), ")")

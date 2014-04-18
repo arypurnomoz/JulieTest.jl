@@ -2,7 +2,7 @@
 
 files = ["src","test"]
 interval = 0.25
-quotes = readdlm(joinpath(Pkg.dir(),"JulieTest/res/quotes.txt"), '\n')
+quotes = readdlm(Pkg.dir("JulieTest/res/quotes.txt"), '\n')
 reporter = ""
 
 # end
@@ -109,10 +109,18 @@ function julieTest()
   end
   
   print(surround(getQuotes()))
+  
+  for arg in ARGS 
+    if ismatch(r"--reporter=.+",arg) 
+      reporter = match(r"(?<=--reporter=).+", arg).match
+    end
+  end
+  
   JulieTest.reporter(reporter)
   
   "--single" in ARGS  && return Base.exit(runAllTest())
   "--skip-init" in ARGS || runAllTest()
+  
   
   startWatch()
   while true; sleep(typemax(Int32)); end

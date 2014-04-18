@@ -1,29 +1,34 @@
 #!/bin/sh
 
 JULIE_USAGE=\
-"Usage: julie [commands] arguments [julia options]
-  
-init      initialize JulieTest directory
-module    create basic module template
-start     start JulieTest to watch the directory
-single    run all test then exit
-help      print this help
+"Usage: julie [commands] arguments [options]
 
-examples:
+\033[1;3mCommands:\033[0m
+    init  initialize JulieTest directory
+  module  create basic module template
+   start  start JulieTest to watch the directory
+  single  run all test then exit
+    help  print this help
+
+\033[1;3mOptions:\033[0m
+  --reporter=dot  use specified reporter
+  --skip-init     skip running all test at start
+
+\033[1;3mExamples:\033[0m
   julie init
   julie module first second
-  julie start -p 4"
+  julie start -p 4
+"
 
 JULIE_TEST_CONFIG_TEMPLATE=\
 "#JulieTest config file
   
-include(joinpath(Pkg.dir(),\"JulieTest/src/watch.jl\"))
+include(Pkg.dir(\"JulieTest/src/watch.jl\"))
 
 # Configure the watcher
 
 watch = [\"src\", \"test\"]
 interval = 0.25 # in seconds
-
 
 # Configure the test runner
 
@@ -87,20 +92,20 @@ case $1 in
     ;;
   single)
     shift
-    julia $@ $(pwd)/testConfig.jl --single
+    julia $(pwd)/testConfig.jl --single $@
     ;;
   start)
     shift
     echo "Loading julia... May take a while"
-    julia $@ $(pwd)/testConfig.jl
+    julia $@ $(pwd)/testConfig.jl $@
     while true; do
       echo "WARNING: Julia exited with an error"
       echo "Will skip all test on enter to avoid error"
-      julia $@ $(pwd)/testConfig.jl --skip-init
+      julia $(pwd)/testConfig.jl --skip-init $@
       sleep 2
     done
     ;;
   *)
-    echo "$JULIE_USAGE"
+    printf "$JULIE_USAGE"
 esac
 

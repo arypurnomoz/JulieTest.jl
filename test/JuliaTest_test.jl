@@ -56,7 +56,7 @@ describe("@is") do
   describe("recursive describe") do
     it(noob, "in recursive")
     describe("going deeper") do
-      it(noob, "nice and deep")
+      it(noob, "it's dark here")
     end
   end
 
