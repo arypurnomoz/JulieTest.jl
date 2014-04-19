@@ -33,13 +33,14 @@ type DescriptionError
   trace
 end
 
-currDesc = None
+noob() = begin end
 depth = 0
 iitOn = false
 iitTests= Test[]
-descriptions = Description[]
+descriptions = Description("", noob,0)
 passes = Test[]
 errors = Union(Error,DescriptionError)[]
+currDesc = descriptions
 
 function run(test::Test)
   iitOn && !test.iit && return
@@ -79,7 +80,7 @@ function run(desc::Description)
 end
 
 function run()
-  global descriptions, passes, errors, depth, iitOn, iitTests
+  global descriptions, passes, errors, depth, iitOn, iitTests, currDesc
   t0 = time()
   run(descriptions)
   summaryReport(passes,errors, toMilis(time() - t0))
@@ -88,17 +89,18 @@ function run()
   tests = None
   depth = 0
   iitOn = false
-  empty!(descriptions)
+  empty!(descriptions.children)
   empty!(passes)
   empty!(errors)
+  currDesc = descriptions
   
   println('\n',"\033[33mAll test finished running\n", RESET)
   return length(errors)
 end
 
 function describe(fn::Function, name::String)
-  global descriptions, depth
-  push!(descriptions, Description(name,fn,depth + 1))
+  global currDesc, depth
+  push!(currDesc.children, Description(name,fn,depth + 1))
 end
 
 function it(fn::Function, name::String)

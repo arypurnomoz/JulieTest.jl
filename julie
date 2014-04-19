@@ -51,7 +51,7 @@ using $1, JulieTest
 
 # Write your test here
 
-describe(\"$1 test\") do
+describe(\"$1\") do
   it(\"should pass\") do
     @is 1 => 1
   end
@@ -97,7 +97,7 @@ case $1 in
   start)
     shift
     echo "Loading julia... May take a while"
-    julia $@ $(pwd)/testConfig.jl $@
+    julia $(pwd)/testConfig.jl $@
     while true; do
       echo "WARNING: Julia exited with an error"
       echo "Will skip all test on enter to avoid error"

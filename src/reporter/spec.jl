@@ -54,16 +54,16 @@ function colorTime(elapsed::Int)
 end
 
 function passReport(test::Test, elapsed::Int)
-  println(PAD ^ test.desc.depth,PAD, PASS_LIGHT_COLOR, OK, "\033[90m ", test.name, colorTime(elapsed))
+  println(PAD ^ test.desc.depth,PAD, PASS_LIGHT_COLOR, OK, "\033[90m ", test.name, colorTime(elapsed), RESET)
 end
 
 function failedReport(err::DescriptionError)
   err.desc.depth == 1 && println()
-  print(
+  println(
     PAD ^ err.desc.depth,FAILED_COLOR, FAIL, " ",
-    DESCRIPTION_ERROR_MESSAGE, " - ", err.desc.name
+    DESCRIPTION_ERROR_MESSAGE, " - ", err.desc.name,
+    RESET
   )
-  print(RESET,'\n')
 end
 
 function failedReport(err::Error)
@@ -83,9 +83,6 @@ function fullFailedReport(errors::Array{Union(Error,DescriptionError),1})
     end
     println(":", FAILED_COLOR)
     dump(err.err)
-    #=for i in 1:2=#
-    #=  println(PAD ^ 2,err.trace[i])=#
-    #=end=#
     println(RESET)
   end
 end
