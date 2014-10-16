@@ -27,7 +27,7 @@ function julieTest()
   currentFile in files || push!(files, currentFile)
 
   function line() 
-    "\n" * "=" ^ Base.tty_cols() * "\n"
+    "\n" * "=" ^ Base.tty_size()[2] * "\n"
   end
   
   function surround(txt) 
