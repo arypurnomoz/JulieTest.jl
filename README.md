@@ -6,10 +6,23 @@ A Julia testing framework inspired by javascripts's Mocha. It is also able to wa
 
 ## Installation
 
-```sh
-sudo julia -e 'Pkg.add("JulieTest")'
+#### Linux
+
+Run in Julia REPL:
+
+```julia
+Pkg.add("JulieTest")
 ```
-_** Use sudo to copy julie executable to /usr/local/bin_
+
+This command will install JulieTest into ```~/.julia/<your-julia-version>/JulieTest```.
+
+If you want to access ```julie``` command from other folders, you may want to add ```bin/julie``` command to your ```PATH```. You can do that by adding the following lines to your ```~/.bashrc``` file:
+
+```bash
+# Julie test
+JULIETEST_HOME="~/.julia/v0.3/JulieTest/bin"
+PATH="$PATH:$JULIETEST_HOME"
+```
 
 ## Using Julie Command
 
@@ -60,7 +73,7 @@ quotes = ["Julia rocks!"]
 reporter = "spec"
 
 # the interval of each test, default is int 0.25 second
-interval = 0.25 
+interval = 0.25
 
 # this will start JulieTest
 julieTest()
@@ -75,26 +88,26 @@ describe ("myTest") do
   it("basic") do
     @is 1 => 1
   end
-  
+
   it("above") do
     @is 10 => above 9
   end
-  
+
   it("builtin functions") do
     @is 10 => isa Number
   end
-  
+
   # _it will be ignored
   _it("should fail") do
     @is true => falsy
   end
-  
+
   # iit will make the test ignore the it
   # and only run the iit
   iit("the test should only run this") do
     @is true => not not truthy
   end
-  
+
   # describe can be recursive
   describe("Array") do
     it("should not empty") do
