@@ -45,13 +45,13 @@ function julieTest()
   function runAllTest() 
     for file in readdir(joinpath(PWD,"test"))
       isTestFile(file) || continue
-      reload(joinpath(PWD, "test", file)) 
+      include(joinpath(PWD, "test", file)) 
     end
     JulieTest.runTests()
   end
 
   function runSingleTest(filepath::String)
-    reload(filepath)
+    include(filepath)
     JulieTest.runTests()
   end
 
