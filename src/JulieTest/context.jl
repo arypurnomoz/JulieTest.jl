@@ -12,12 +12,16 @@ type Test
   name::String
   desc::Description
   fn::Function
+  data::Tuple
   iit::Bool
   function Test(name::String, desc::Description, fn::Function, iit::Bool)
-    new(name,desc,fn,iit)
+    new(name,desc,fn,(),iit)
+  end
+  function Test(name::String, desc::Description, fn::Function, data::Tuple)
+    new(name,desc,fn,data,false)
   end
   function Test(name::String, desc::Description, fn::Function)
-    new(name,desc,fn,false)
+    new(name,desc,fn,(),false)
   end
 end
 
@@ -47,7 +51,7 @@ function run(test::Test)
   fin = 0
   try
     t0 = time()
-    test.fn()
+    test.fn(test.data...)
     fin = time() - t0
   catch e
     err = Error(test,e,catch_backtrace())
@@ -84,7 +88,7 @@ function run()
   t0 = time()
   run(descriptions)
   summaryReport(passes,errors, toMilis(time() - t0))
-  
+
   # Reset the global variables
   tests = None
   depth = 0
@@ -93,7 +97,7 @@ function run()
   empty!(passes)
   empty!(errors)
   currDesc = descriptions
-  
+
   println('\n',"\033[33mAll test finished running\n", RESET)
   return length(errors)
 end
@@ -107,11 +111,20 @@ function it(fn::Function, name::String)
   push!(currDesc.children, Test(name,currDesc,fn))
 end
 
+function it(fn::Function, name::String, cases::Any)
+  it(fn, name, cases...)
+end
+
+function it(fn::Function, name::String, cases::Tuple...)
+  for row in cases
+    push!(currDesc.children, Test("$name : $row",currDesc,fn,row))
+  end
+end
+
 function iit(fn::Function, name::String)
   global iitOn = true
   push!(currDesc.children, Test(name,currDesc,fn,true))
 end
-  
+
 _describe(args...) = begin end
 _it(args...) = begin end
-

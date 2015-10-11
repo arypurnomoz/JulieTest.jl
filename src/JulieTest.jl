@@ -3,17 +3,17 @@ module JulieTest
 include("JulieTest/context.jl")
 include("JulieTest/is.jl")
 
-export 
+export
   # reporter
   typeReport,
-  
+
   #context
   describe, _describe, it, iit, _it,
-  
+
   # @is
   @is,
   falsy, falsey, truthy, not,
-  
+
   # comparision
   least, atleast, atLeast,
   most, ismost, isMost,
@@ -22,18 +22,18 @@ export
 
   # array
   empty,
-  
+
   # macros
   @p, @l, @d, @pp, @s
-  
+
 reporterLoaded = false
 
 function runTests()
-  global reporterLoaded 
+  global reporterLoaded
   reporterLoaded || reporter("spec")
   run()
 end
-  
+
 function reporter(str::String)
   global reporterLoaded = true
   str == "" && return
