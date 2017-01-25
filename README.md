@@ -143,3 +143,5 @@ end
 @is [1:5] => not empty
 ```
 
+## Provided by
+[Berdu, platform untuk membuat toko online anda](https://berdu.id)
