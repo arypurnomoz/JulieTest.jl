@@ -8,11 +8,11 @@ describe("@is") do
   it("basic") do
     @is 1 => 1
   end
-  
+
   it("expression on left side") do
     @is 1 + 1 => 2
   end
-  
+
   it("variable on the left side") do
     x = 1
     @is x => 1
@@ -51,8 +51,17 @@ describe("@is") do
     x = []
     @is x => empty
   end
-  
-  
+
+  describe("parameterised tests") do
+    it("runs each case the given 2 values", [(2, 4) (1,1)]) do base, answer
+      @is base^2 => answer
+    end
+
+    it("runs each case containing multiple values", [(2, 3, 5) (1,2,3) (-1,2,1)]) do first, second, answer
+      @is first + second => answer
+    end
+  end
+
   describe("recursive describe") do
     it(noob, "in recursive")
     describe("going deeper") do
@@ -69,15 +78,15 @@ describe("condition function") do
     @is x => atleast 2
     @is x => atLeast 2
   end
-  
+
   it("not") do
     @is 1 => not 2
-    
+
   it("double not") do
     @is 1 => not not 1
   end
   end
-  
+
   it("built-in isa") do
     @is 1 => isa Number
   end

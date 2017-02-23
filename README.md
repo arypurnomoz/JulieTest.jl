@@ -1,4 +1,4 @@
-# JulieTest [![Build Status](https://travis-ci.org/arypurnomoz/JulieTest.jl.svg?branch=master)](https://travis-ci.org/arypurnomoz/JulieTest.jl)
+# JulieTest [![Build Status](https://travis-ci.org/nashjain/JulieTest.jl.svg)](https://travis-ci.org/nashjain/JulieTest.jl)
 
 A Julia testing framework inspired by javascripts's Mocha. It is also able to watch for changes and run specific the test.
 
